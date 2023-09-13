@@ -1,0 +1,49 @@
+# Action setup:
+#
+# Copy this action to .github/workflows
+#
+# Add GH_TOKEN, which is Personal Access Token (PAT), to secrets or rename GH_TOKEN in this code to an already existing token
+#
+# Add to .gitignore a comment before line that ignores result of the build with the following postfix:
+#   (next line will be removed by build-typescript GitHub action to be included in dist branch)
+#
+# Copy PRE-RELEASE.md rom this project
+
+name: Pre-Release to Build branch
+on:
+  push:
+    branches:
+      - [main, master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Remove build result from .gitignore
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          # TODO: add file filter
+          find: "#.*\\(next line will be removed by build-typescript GitHub action to be included in dist branch\\)\\n.*\\n"
+          replace: "###"
+          regex: false
+      - name: Build typescript project
+        run: npm run build
+        shell: bash
+      - name: Commit files to pre-release branch
+        run: |
+          git config --local user.email "none@noreply.github.com"
+          git config --local user.name "pre-release-to-branch[bot]"
+          git commit -a -m "Typescript build"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          branch: "pre-release"
+
+#      - name: Build and push
+#        uses: alexthemaster/action-build-typescript@v1.3.1
+#        with:
+#          pushToBranch: true # optional; can either be true or false | defaults to false
+#          branch: 'build' # optional; the name of the branch the action should push the compiled code to | defaults to dist
+#          githubToken: ${{ secrets.GH_TOKEN }} # required if you use the pushToBranch option
