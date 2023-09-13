@@ -36,8 +36,8 @@ jobs:
         shell: bash
       - name: Commit files to pre-release branch
         run: |
-          git config --local user.email "none@noreply.github.com"
-          git config --local user.name "pre-release-to-branch[bot]"
+          git config --local user.email "azorkaltsev@yandex-team.ru"
+          git config --local user.name "pre-release-to-branch[action]"
           git add .
           git commit -a -m "Typescript build"
       - name: Push changes
