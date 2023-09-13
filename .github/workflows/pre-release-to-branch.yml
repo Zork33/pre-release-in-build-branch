@@ -27,15 +27,17 @@ jobs:
       - name: Remove build result from .gitignore
         uses: jacobtomlinson/gha-find-replace@v3
         with:
-          # TODO: add file filter
+          include: ".gitignore"
           find: "#.*\\(next line will be removed by build-typescript GitHub action to be included in dist branch\\)\\n.*\\n"
           replace: "###"
-          regex: true
       - name: .gitignore
         run: cat .gitignore
         shell: bash
       - name: Build typescript project
         run: npm run build
+        shell: bash
+      - name: ls
+        run: ls -a
         shell: bash
       - name: Commit files to pre-release branch
         run: |
