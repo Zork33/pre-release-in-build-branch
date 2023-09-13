@@ -1,7 +1,5 @@
 # node modules
 node_modules
-# build path (next line will be removed by build-typescript GitHub action to be included in dist branch)
-dist
 # environmental variables
 .env
 # yarn error log
@@ -12,3 +10,5 @@ yarn-error.log
 .idea
 #coverage
 coverage
+# build path (next line will be removed by build-typescript GitHub action to be included in dist branch)
+dist

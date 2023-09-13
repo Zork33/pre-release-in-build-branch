@@ -22,7 +22,7 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         shell: bash
       - name: Remove build result from .gitignore
         uses: jacobtomlinson/gha-find-replace@v3
@@ -38,17 +38,9 @@ jobs:
         run: |
           git config --local user.email "azorkaltsev@yandex-team.ru"
           git config --local user.name "pre-release-to-branch[action]"
-          git add .
           git commit -a -m "Typescript build"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GH_TOKEN }}
           branch: "pre-release"
-
-#      - name: Build and push
-#        uses: alexthemaster/action-build-typescript@v1.3.1
-#        with:
-#          pushToBranch: true # optional; can either be true or false | defaults to false
-#          branch: 'build' # optional; the name of the branch the action should push the compiled code to | defaults to dist
-#          githubToken: ${{ secrets.GH_TOKEN }} # required if you use the pushToBranch option
