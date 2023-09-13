@@ -38,6 +38,7 @@ jobs:
         run: |
           git config --local user.email "azorkaltsev@yandex-team.ru"
           git config --local user.name "pre-release-to-branch[action]"
+          git add .
           git commit -a -m "Typescript build"
       - name: Push changes
         uses: ad-m/github-push-action@master
