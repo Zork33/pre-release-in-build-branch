@@ -13,7 +13,8 @@ name: Pre-Release to Build branch
 on:
   push:
     branches:
-      - [main, master]
+      - main
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
