@@ -31,9 +31,9 @@ jobs:
           find: "#.*\\(next line will be removed by build-typescript GitHub action to be included in dist branch\\)\\n.*\\n"
           replace: "###"
           regex: true
-      - name .gitignore
-        run cat .gitignore
-        shell bash
+      - name: .gitignore
+        run: cat .gitignore
+        shell: bash
       - name: Build typescript project
         run: npm run build
         shell: bash
